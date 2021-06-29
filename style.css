@@ -1,60 +1,45 @@
 @charset "UTF-8";
 
-body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+a:hover {
+    text-decoration: none;
 }
 
-body a:link {
-  text-decoration: none;
-}
-
-.header{
-    display: flex;
-    justify-content: center;
-    background-color: rgb(229, 208, 250);
-}
-
-.logo{
-    max-width: 400px;
-}
-
-.logo:hover{
-    transform: scale(1.02);
-}
-
-.main{
+.cameras {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+
+section a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 500px;
+    margin: 20px;
+    border-radius: 15px;
+    color: black;
+}
+
+section a img {
+    width: 400px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+footer {
     margin-top: 40px;
 }
 
-.menu{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 50px;
-    width: 100%;
+/*------------------------*/
+
+.camera_card {
+    width: 300px;
 }
 
-.products{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 60px;
-}
-
-.products__bloc{
-    border-radius: 3rem;
-    border: 2px solid violet;
-    padding: 0px 15px;
-    background-color: rgb(255, 185, 255);
-}
-
-.footer{
-    margin-top: 200px;
-    background-color: rgb(229, 208, 250);
+section img {
+    width: 400px;
+    border-radius: 15px;
+    margin-top: 10px;
 }
