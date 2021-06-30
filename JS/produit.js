@@ -58,12 +58,12 @@ function createCardCamera(cameraSelected) {
     select.setAttribute('name', "Choix de la lentille de " + camera.name);
     select.setAttribute('id', "select_1 ");
 
-    const lenses = camera.lenses;
-    for (i = 0; i < lenses.length; i++) {
-        const selectOption = document.createElement('option');
-        selectOption.textContent = lenses[i];
-        selectOption.setAttribute("value", lenses[i]);
-    }
+  //  const lenses = camera.lenses;
+  //  for (i = 0; i < lenses.length; i++) {
+  //      const selectOption = document.createElement('option');
+  //      selectOption.textContent = lenses[i];
+  //      selectOption.setAttribute("value", lenses[i]);
+  //  }
 
     cameraDiv.appendChild(cameraCard);
     cameraCard.appendChild(cameraImg);
