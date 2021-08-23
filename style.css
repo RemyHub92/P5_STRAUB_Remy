@@ -10,13 +10,16 @@ a:hover {
     flex-direction: column;
 }
 
+.camera_index{
+    width: 500px;
+}
 
 section a {
     display: flex;
     align-items: center;
+    text-align: center;
     flex-direction: column;
-    border: 1px solid black;
-    width: 500px;
+    border: 2px solid black;
     margin: 20px;
     border-radius: 15px;
     color: black;
@@ -25,7 +28,7 @@ section a {
 section a img {
     width: 400px;
     border-radius: 15px;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 footer {
@@ -34,12 +37,56 @@ footer {
 
 /*------------------------*/
 
+.main_produit {
+    display: flex;
+    justify-content: center;
+}
+
+.camera {
+    width: 400px;
+    margin-top: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
 .camera_card {
-    width: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
 }
 
 section img {
-    width: 400px;
+    width: 100%;
     border-radius: 15px;
-    margin-top: 10px;
 }
+
+.camera_info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+label {
+    margin-right: 20px;
+}
+
+#submit {
+    margin: 20px;
+    background-color: rgb(214, 143, 255);
+    color: white;
+    font-weight: 500;
+    padding: 8px;
+    transform: scale(1);
+    transition: transform 300ms ease-in-out;
+    border-radius: 10px;
+}
+
+#submit:hover {
+    background-color: rgb(226, 180, 253);
+    transform: scale(1.1);
+}
+

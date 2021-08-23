@@ -28,11 +28,11 @@ function createCardCameras(cameras) {
     const camerasDiv = document.getElementById('cameras');
 
     const camerasSection = document.createElement('section');
-    camerasSection.classList.add = 'camera';
+    camerasSection.classList.add('camera_index');
 
     const camerasLink = document.createElement('a');
     camerasLink.href = "produit.html?id=" + cameras._id;
-    camerasLink.classList.add = 'link';
+    camerasLink.className = 'link';
 
     const camerasImg = document.createElement('img');
     camerasImg.setAttribute('src', cameras.imageUrl);
@@ -40,7 +40,7 @@ function createCardCameras(cameras) {
 
 
     const camerasContent = document.createElement('div');
-    camerasContent.classList.add = 'cameras_content';
+    camerasContent.className = 'cameras_content';
 
     const camerasTitle = document.createElement('h3');
     camerasTitle.textContent = cameras.name;
