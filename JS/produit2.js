@@ -1,5 +1,3 @@
-
-
 let cameraSelected = [];
 
 
@@ -86,27 +84,31 @@ function createCardCamera(cameraSelected) {
         console.log(cameraChoosen);
 
 
-        let storedCamera = JSON.parse(localStorage.getItem('newArticle'));
-        if(storedCamera) {
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem('newArticle', JSON.stringify(storedCamera));
-            console.log(storedCamera);
-            if (window.confirm(cameraSelected.name + " " + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
-                window.location.href = "panier.html";
-            } else {
-                window.location.href = "index.html";
-            }
-        } else {
-            storedCamera = [];
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem('newArticle', JSON.stringify(storedCamera));
-            console.log(storedCamera);
-            if (window.confirm(cameraSelected.name + " " + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+        
+        const confirm = () => {
+            if (window.confirm(cameraSelected.name + " " + 'a bien été ajouté au panier. Voulez-vous consulter votre panier ?')) {
                 window.location.href = "panier.html";
             } else {
                 window.location.href = "index.html";
             }
         }
+
+        let storedCamera = JSON.parse(localStorage.getItem('newArticle'));
+
+        if (storedCamera) {
+            storedCamera.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCamera));
+            confirm();
+
+        } else {
+            storedCamera = [];
+            storedCamera.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCamera));
+            confirm();
+        }
+
+
+
     });
 
 
