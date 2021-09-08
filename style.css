@@ -90,3 +90,12 @@ label {
     transform: scale(1.1);
 }
 
+
+/*--panier--*/
+
+.stored_card{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+

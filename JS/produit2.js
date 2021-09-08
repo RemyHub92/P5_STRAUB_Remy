@@ -33,7 +33,7 @@ function createCardCamera(cameraSelected) {
     cameraImg.setAttribute('title', cameraSelected.name);
 
     const cameraInfo = document.createElement('div');
-    cameraInfo.className = 'camera_info';
+    cameraInfo.className = 'camera_info bg-primary';
 
     const cameraTitle = document.createElement('h3');
     cameraTitle.textContent = cameraSelected.name;
@@ -93,18 +93,20 @@ function createCardCamera(cameraSelected) {
             }
         }
 
-        let storedCamera = JSON.parse(localStorage.getItem('newArticle'));
+        let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
 
-        if (storedCamera) {
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem("newArticle", JSON.stringify(storedCamera));
-            confirm();
+        if (storedCameras) {
+            storedCameras.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCameras));
+            console.log(storedCameras);
+          //  confirm();
 
         } else {
-            storedCamera = [];
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem("newArticle", JSON.stringify(storedCamera));
-            confirm();
+            storedCameras = [];
+            storedCameras.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCameras));
+            console.log(storedCameras);
+         //   confirm();
         }
 
 
