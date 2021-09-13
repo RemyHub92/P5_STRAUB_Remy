@@ -27,8 +27,8 @@ function getCameras() {
 function createCardCameras(cameras) {
     const camerasDiv = document.getElementById('cameras');
 
-    const camerasSection = document.createElement('section');
-    camerasSection.classList.add('camera_index');
+    const camerasSection = document.createElement('div');
+    camerasSection.className = 'camera_index card col-lg-8';
 
     const camerasLink = document.createElement('a');
     camerasLink.href = "produit.html?id=" + cameras._id;

@@ -10,18 +10,16 @@ a:hover {
     flex-direction: column;
 }
 
-.camera_index{
+.camera_index {
     width: 500px;
 }
 
-section a {
+.link {
     display: flex;
     align-items: center;
     text-align: center;
     flex-direction: column;
-    border: 2px solid black;
     margin: 20px;
-    border-radius: 15px;
     color: black;
 }
 
@@ -93,9 +91,41 @@ label {
 
 /*--panier--*/
 
-.stored_card{
-    display: flex;
-    flex-direction: column;
+.stored_card {
     text-align: center;
+    margin-top: 40px;
 }
 
+.btn-secondary{
+    padding: 10px 40px;
+    background-color: rgb(214, 143, 255);
+}
+
+.btn-secondary a{
+    color: white;
+    text-decoration: none;
+}
+
+.garbage_link{
+    justify-content: space-between;
+}
+
+.icon_garbage {
+    padding: 10px 40px;
+}
+
+.contact_form {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 50px;
+}
+
+.div_info {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+}
+
+.div_button{
+    margin-top: 20px;
+}

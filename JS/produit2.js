@@ -33,7 +33,7 @@ function createCardCamera(cameraSelected) {
     cameraImg.setAttribute('title', cameraSelected.name);
 
     const cameraInfo = document.createElement('div');
-    cameraInfo.className = 'camera_info bg-primary';
+    cameraInfo.className = 'camera_info';
 
     const cameraTitle = document.createElement('h3');
     cameraTitle.textContent = cameraSelected.name;
