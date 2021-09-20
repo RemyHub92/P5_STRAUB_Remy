@@ -1,4 +1,3 @@
-
 let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
 console.log(storedCameras);
 
@@ -7,17 +6,19 @@ const storedDiv = document.getElementById('stored');
 const storedCard = document.createElement('div');
 storedCard.className = 'stored_card';
 
-if(storedCameras == null || storedCameras.length === 0) {
+
+if (storedCameras == null || storedCameras.length === 0) {
     const emptyStored = document.createElement('p');
     emptyStored.className = 'empty_stored';
     emptyStored.textContent = 'Votre panier est vide !';
     storedCard.appendChild(emptyStored);
 
 } else {
-    let i =  0;
+    let i = 0;
     for (storedCamera of storedCameras) {
         const cardProd = document.createElement('div');
         cardProd.className = 'card_prod';
+        cardProd.setAttribute('data-id', storedCamera.cameraId);
         storedCard.appendChild(cardProd);
 
         const cameraInfo = document.createElement('p');
@@ -31,35 +32,41 @@ if(storedCameras == null || storedCameras.length === 0) {
         cameraPrice.id = i++;
 
         const price = document.createElement('p');
-        cameraInfo.appendChild(price);
+        cameraPrice.appendChild(price);
         price.textContent = storedCamera.cameraPrice + " €";
 
         const garbageButton = document.createElement('button');
         garbageButton.className = 'garbage_button';
+        garbageButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            let productsRemoveId = event.target.closest('.card_prod').dataset.id;
+            console.log(productsRemoveId);
+            let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
+            let i = 0;
+            while (i < storedCameras.length) {
+                if (storedCameras[i].cameraId == productsRemoveId) {
+                    storedCameras.splice(i, 1);
+                    i = storedCameras.length;
+                }
+                i++;
+            };
+            localStorage.setItem('newArticle', JSON.stringify(storedCameras));
+            event.target.closest('.card_prod').remove();
+            console.log(JSON.parse(localStorage.getItem('newArticle')));
+            console.log(storedCard);
+            totalCalculator(storedCard);
+        });
         garbageButton.title = 'Supprimer cet article ?';
-        cameraInfo.appendChild(garbageButton);
+        cameraPrice.appendChild(garbageButton);
+
 
         const iconButton = document.createElement('i');
         garbageButton.appendChild(iconButton);
         iconButton.className = 'fas fa-trash-alt';
+
+
     };
 
-    let garbageButton = document.getElementsByClassName('garbage_button');
-    console.log(garbageButton);
-    for (let i = 0 ; i < garbageButton.length; i++) { 
-        garbageButton[i].addEventListener("click" , function (event) {
-            event.preventDefault();
-            let id = this.closest('.camera_price').id;
-           
-            storedCameras.splice(id, 1);
-            
-            localStorage.setItem('newArticle', JSON.stringify(storedCameras));
-            JSON.parse(localStorage.getItem('newArticle'));
-
-            alert('Cet article a bien été supprimé !');
-            window.location.href = "panier.html";
-        });
-    };
 
     let calculPrice = []
     for (storedCamera of storedCameras) {
@@ -67,18 +74,37 @@ if(storedCameras == null || storedCameras.length === 0) {
         calculPrice.push(article);
     };
 
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const totalPrice = calculPrice.reduce(reducer, 0);
-    console.log(totalPrice);
+    function totalCalculator(storedCard) {
+        let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
+        let i = 0;
+        let totalPrice = 0;
+        while (i < storedCameras.length) {
+            totalPrice += storedCameras[i].cameraPrice;
+            i++;
+        };
+        console.log(totalPrice);
+        return (totalPrice);
+    };
 
-    const total = document.createElement('p');
-    storedCard.appendChild(total);
-    total.className = 'total';
-    total.textContent = "Montant total = " + totalPrice + " €";
+
+    function setTotal(storedCard) {
+        totalPrice = totalCalculator(storedCard);
+        let totalElement = document.getElementsByClassName('total')[0];
+        if (totalElement) {
+            totalElement.textContent = "Montant total = " + totalPrice + " €";
+        } else {
+            const total = document.createElement('p');
+            total.className = 'total';
+            total.textContent = "Montant total = " + totalPrice + " €";
+            storedCard.appendChild(total);
+        }
+    };
+
+    setTotal(storedCard);
 
     const garbage = document.createElement('button');
     storedCard.appendChild(garbage),
-    garbage.className = 'icon_garbage btn btn-secondary btn-rounded'; ////////////////////////////////
+        garbage.className = 'icon_garbage btn btn-secondary btn-rounded'; ////////////////////////////////
 
     const garbageLink = document.createElement('a');
     garbage.appendChild(garbageLink);
@@ -124,7 +150,7 @@ if(storedCameras == null || storedCameras.length === 0) {
         return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value);
     };
 
-    function validMail(value){
+    function validMail(value) {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     };
 
@@ -144,9 +170,8 @@ if(storedCameras == null || storedCameras.length === 0) {
     firstName.name = "Prénom";
     firstName.required = true;
 
-    firstName.addEventListener("change", function(event) {
-        if(validFirstName(firstName.value)) {
-        } else {
+    firstName.addEventListener("change", function (event) {
+        if (validFirstName(firstName.value)) {} else {
             alert("Les chiffres et symboles ne sont pas autorisés.");
             event.preventDefault();
         }
@@ -168,9 +193,8 @@ if(storedCameras == null || storedCameras.length === 0) {
     lastName.name = "Nom";
     lastName.required = true;
 
-    lastName.addEventListener("change", function(event) {
-        if(validLastName(lastName.value)) {
-        } else {
+    lastName.addEventListener("change", function (event) {
+        if (validLastName(lastName.value)) {} else {
             alert("Les chiffres et symboles ne sont pas autorisés.");
             event.preventDefault();
         }
@@ -193,8 +217,7 @@ if(storedCameras == null || storedCameras.length === 0) {
     address.required = true;
 
     address.addEventListener("change", function (event) {
-        if (validAddress(address.value)){
-        } else {
+        if (validAddress(address.value)) {} else {
             alert("Aucun symbole n'est autoriséffffffffff.");
             event.preventDefault()
         }
@@ -217,8 +240,7 @@ if(storedCameras == null || storedCameras.length === 0) {
     city.required = true;
 
     city.addEventListener("change", function (event) {
-        if (validCity(city.value)) {
-        } else {
+        if (validCity(city.value)) {} else {
             alert("Aucun chiffre ou symbole n'est autorisé.")
             event.preventDefault()
         }
@@ -241,8 +263,7 @@ if(storedCameras == null || storedCameras.length === 0) {
     mail.required = true;
 
     mail.addEventListener("change", function (event) {
-        if (validMail(mail.value)){
-        } else {
+        if (validMail(mail.value)) {} else {
             event.preventDefault()
             alert("Veuillez saisir une adresse mail valide (exemple : prenom.nom@mail.com).");
         }
@@ -260,10 +281,11 @@ if(storedCameras == null || storedCameras.length === 0) {
     submit.id = 'valid';
     submit.textContent = "Valider ma commande";
 
-    submit.addEventListener("click", function(event) {
-        if(validFirstName(firstName.value) && validLastName(lastName.value) && validAddress(address.value) && validCity(city.value)) {
+    submit.addEventListener("click", function (event) {
+        if (validFirstName(firstName.value) && validLastName(lastName.value) && validAddress(address.value) && validCity(city.value)) {
             event.preventDefault();
 
+            totalPrice = totalCalculator(storedCard);
             localStorage.setItem('totalPrice', totalPrice);
             const storagePrice = localStorage.getItem('totalPrice');
             console.log(storagePrice);
@@ -290,7 +312,7 @@ if(storedCameras == null || storedCameras.length === 0) {
             }
             console.log(send);
 
-            const post = async function (data){
+            const post = async function (data) {
                 try {
                     let response = await fetch('http://localhost:3000/api/cameras/order', {
                         method: 'POST',
@@ -300,7 +322,7 @@ if(storedCameras == null || storedCameras.length === 0) {
                         }
                     });
 
-                    if(response.ok) {
+                    if (response.ok) {
                         let data = await response.json();
                         console.log(data.orderId);
                         localStorage.setItem("responseOrder", data.orderId);
@@ -311,11 +333,11 @@ if(storedCameras == null || storedCameras.length === 0) {
                         event.preventDefault();
                         console.error('Retour du serveur : ', response.status);
                         alert('Erreur rencontrée : ' + response.status);
-                    } 
+                    }
 
                 } catch (error) {
                     alert("Erreur : " + error);
-                } 
+                }
             };
             post(send);
         }
@@ -331,5 +353,3 @@ if(storedCameras == null || storedCameras.length === 0) {
 
 
 storedDiv.appendChild(storedCard);
-
-

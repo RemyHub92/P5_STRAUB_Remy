@@ -1,5 +1,3 @@
-
-
 let cameraSelected = [];
 
 
@@ -83,30 +81,37 @@ function createCardCamera(cameraSelected) {
             quantity: 1,
             cameraPrice: cameraSelected.price / 100,
         };
+     
         console.log(cameraChoosen);
 
 
-        let storedCamera = JSON.parse(localStorage.getItem('newArticle'));
-        if(storedCamera) {
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem('newArticle', JSON.stringify(storedCamera));
-            console.log(storedCamera);
-            if (window.confirm(cameraSelected.name + " " + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
-                window.location.href = "panier.html";
-            } else {
-                window.location.href = "index.html";
-            }
-        } else {
-            storedCamera = [];
-            storedCamera.push(cameraChoosen);
-            localStorage.setItem('newArticle', JSON.stringify(storedCamera));
-            console.log(storedCamera);
-            if (window.confirm(cameraSelected.name + " " + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+        
+        const confirm = () => {
+            if (window.confirm(cameraSelected.name + " " + 'a bien été ajouté au panier. Voulez-vous consulter votre panier ?')) {
                 window.location.href = "panier.html";
             } else {
                 window.location.href = "index.html";
             }
         }
+
+        let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
+
+        if (storedCameras) {
+            storedCameras.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCameras));
+            console.log(storedCameras);
+          //  confirm();
+
+        } else {
+            storedCameras = [];
+            storedCameras.push(cameraChoosen);
+            localStorage.setItem("newArticle", JSON.stringify(storedCameras));
+            console.log(storedCameras);
+         //   confirm();
+        }
+
+
+
     });
 
 
