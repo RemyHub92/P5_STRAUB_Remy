@@ -96,6 +96,10 @@ label {
     margin-top: 40px;
 }
 
+.card_prod{
+    margin: 20px;
+}
+
 .btn-secondary{
     padding: 10px 40px;
     background-color: rgb(214, 143, 255);

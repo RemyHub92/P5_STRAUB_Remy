@@ -1,14 +1,15 @@
-
-
+// récupération de l'id de la commande
 let orderId = localStorage.getItem('responseOrder');
 console.log(orderId);
 
+// récupération du prix total de la commande
 let totalPrice = localStorage.getItem('totalPrice');
 console.log(totalPrice);
 
 const mainConfirm = document.getElementById('main_confirm');
+//création page de confirmation et remerciement
 const orderConfirm = document.createElement('div');
-orderConfirm.className = 'order_confirm col-md-6 text-center'; //---------------//
+orderConfirm.className = 'order_confirm col-md-6 text-center'; 
 mainConfirm.appendChild(orderConfirm);
 
 const confirmTitle = document.createElement('h3');
@@ -20,6 +21,7 @@ const txtConfirm = document.createElement('p');
 txtConfirm.textContent = "Nous avons le plaisir de vous informer que votre commande a bien été enregistrée !";
 orderConfirm.appendChild(txtConfirm);
 
+// récapitulatif de la commande
 const divConfirm = document.createElement('div');
 divConfirm.className = 'div_confirm bg-secondary text-light';
 orderConfirm.appendChild(divConfirm);
@@ -41,3 +43,6 @@ orderConfirm.appendChild(txtConfirm2);
 const txtConfirm3 = document.createElement('p');
 txtConfirm3.textContent = "Nous esperons vous revoir bientot !";
 orderConfirm.appendChild(txtConfirm3);
+
+// Efface localStorage
+localStorage.clear();

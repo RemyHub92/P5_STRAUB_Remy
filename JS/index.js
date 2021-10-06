@@ -1,8 +1,6 @@
-
-
 let cameras = [];
 
-
+//récupération des données de l'API 
 function getCameras() {
     fetch("http://localhost:3000/api/cameras/")
         .then(async result => {
@@ -27,18 +25,21 @@ function getCameras() {
 function createCardCameras(cameras) {
     const camerasDiv = document.getElementById('cameras');
 
+    //création section "camera_index"
     const camerasSection = document.createElement('div');
     camerasSection.className = 'camera_index card col-lg-8';
 
+    //création lien vers produit.html pour chaque section
     const camerasLink = document.createElement('a');
     camerasLink.href = "produit.html?id=" + cameras._id;
     camerasLink.className = 'link';
 
+    //création image Camera + src et title
     const camerasImg = document.createElement('img');
     camerasImg.setAttribute('src', cameras.imageUrl);
     camerasImg.setAttribute('title', cameras.name);
 
-
+    //création des diffents éléments div, h3 et p
     const camerasContent = document.createElement('div');
     camerasContent.className = 'cameras_content';
 
@@ -59,5 +60,5 @@ function createCardCameras(cameras) {
 
 }
 
-
+//appel de la fonction getCameras
 getCameras();

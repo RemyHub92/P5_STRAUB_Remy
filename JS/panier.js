@@ -1,23 +1,27 @@
+//récuperation des données du localstorage
 let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
 console.log(storedCameras);
 
 
 const storedDiv = document.getElementById('stored');
+//création de la page du panier
 const storedCard = document.createElement('div');
 storedCard.className = 'stored_card';
+storedDiv.appendChild(storedCard);
 
-
+//si panier vide:
 if (storedCameras == null || storedCameras.length === 0) {
     const emptyStored = document.createElement('p');
     emptyStored.className = 'empty_stored';
     emptyStored.textContent = 'Votre panier est vide !';
     storedCard.appendChild(emptyStored);
-
+//sinon: récupération des éléments du panier
 } else {
     let i = 0;
     for (storedCamera of storedCameras) {
+        //création des différents éléments du panier
         const cardProd = document.createElement('div');
-        cardProd.className = 'card_prod';
+        cardProd.className = 'card_prod d-flex justify-content-around border border-secondary col-xl-6 col-md-6';
         cardProd.setAttribute('data-id', storedCamera.cameraId);
         storedCard.appendChild(cardProd);
 
@@ -35,39 +39,42 @@ if (storedCameras == null || storedCameras.length === 0) {
         cameraPrice.appendChild(price);
         price.textContent = storedCamera.cameraPrice + " €";
 
+        //création d'un bouton suppression pour chaque élément du panier
         const garbageButton = document.createElement('button');
         garbageButton.className = 'garbage_button';
         garbageButton.addEventListener("click", function (event) {
             event.preventDefault();
+            //récupétion de l'article
             let productsRemoveId = event.target.closest('.card_prod').dataset.id;
             console.log(productsRemoveId);
             let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
             let i = 0;
             while (i < storedCameras.length) {
-                if (storedCameras[i].cameraId == productsRemoveId) {
+                if (storedCameras[i].cameraId == productsRemoveId) { 
+                    //suppression de l'article du local storage
                     storedCameras.splice(i, 1);
                     i = storedCameras.length;
                 }
                 i++;
             };
+            //enregistement du nouveau localstorage
             localStorage.setItem('newArticle', JSON.stringify(storedCameras));
+            //suppression de la div de la camera supprimée
             event.target.closest('.card_prod').remove();
             console.log(JSON.parse(localStorage.getItem('newArticle')));
             console.log(storedCard);
             totalCalculator(storedCard);
         });
         garbageButton.title = 'Supprimer cet article ?';
-        cameraPrice.appendChild(garbageButton);
-
+        cardProd.appendChild(garbageButton);
 
         const iconButton = document.createElement('i');
         garbageButton.appendChild(iconButton);
         iconButton.className = 'fas fa-trash-alt';
 
-
     };
 
-
+    //calcul du montant total
     let calculPrice = []
     for (storedCamera of storedCameras) {
         let article = storedCamera.cameraPrice;
@@ -86,7 +93,6 @@ if (storedCameras == null || storedCameras.length === 0) {
         return (totalPrice);
     };
 
-
     function setTotal(storedCard) {
         totalPrice = totalCalculator(storedCard);
         let totalElement = document.getElementsByClassName('total')[0];
@@ -102,6 +108,7 @@ if (storedCameras == null || storedCameras.length === 0) {
 
     setTotal(storedCard);
 
+    //création d'un bouton pour vider le panier
     const garbage = document.createElement('button');
     storedCard.appendChild(garbage),
         garbage.className = 'icon_garbage btn btn-secondary btn-rounded'; ////////////////////////////////
@@ -124,7 +131,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         window.location.href = "panier.html";
     });
 
-
+    //création du formulaire de commande
     const form = document.createElement('form');
     form.className = 'contact_form';
     storedCard.appendChild(form);
@@ -133,7 +140,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     formTitle.textContent = "Pour valider votre commande, merci de valider le formulaire ci-dessous:";
     form.appendChild(formTitle);
 
-
+    //création des fonctions de valité (prénom, nom, ville)
     function validFirstName(value) {
         return /^[A-Z-a-z\s]{3,40}$/.test(value);
     }
@@ -146,14 +153,17 @@ if (storedCameras == null || storedCameras.length === 0) {
         return /^[A-Z-a-z\s]{3,40}$/.test(value);
     }
 
+    //création des fonctions de validité de l'adresse
     function validAddress(value) {
         return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value);
     };
 
+    //création des fonctions de validité du mail
     function validMail(value) {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     };
 
+    //création du formulaire prénom
     const divFirstName = document.createElement('div');
     form.appendChild(divFirstName);
     divFirstName.className = 'div_info';
@@ -170,6 +180,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     firstName.name = "Prénom";
     firstName.required = true;
 
+    //vérification de la validité du prénom
     firstName.addEventListener("change", function (event) {
         if (validFirstName(firstName.value)) {} else {
             alert("Les chiffres et symboles ne sont pas autorisés.");
@@ -177,6 +188,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
+     //création du formulaire nom
     const divLastName = document.createElement('div');
     form.appendChild(divLastName);
     divLastName.className = 'div_info';
@@ -193,6 +205,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     lastName.name = "Nom";
     lastName.required = true;
 
+    //vérification de la validité du nom
     lastName.addEventListener("change", function (event) {
         if (validLastName(lastName.value)) {} else {
             alert("Les chiffres et symboles ne sont pas autorisés.");
@@ -200,6 +213,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
+     //création du formulaire adresse
     const divAddress = document.createElement('div');
     form.appendChild(divAddress);
     divAddress.className = 'div_info';
@@ -216,6 +230,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     address.name = "Adresse";
     address.required = true;
 
+    //vérification de la validité de l'adresse
     address.addEventListener("change", function (event) {
         if (validAddress(address.value)) {} else {
             alert("Aucun symbole n'est autoriséffffffffff.");
@@ -223,6 +238,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
+     //création du formulaire ville
     const divCity = document.createElement('div');
     form.appendChild(divCity);
     divCity.className = 'div_info';
@@ -239,6 +255,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     city.name = "Ville"
     city.required = true;
 
+    //vérification de la validité de la ville
     city.addEventListener("change", function (event) {
         if (validCity(city.value)) {} else {
             alert("Aucun chiffre ou symbole n'est autorisé.")
@@ -246,6 +263,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
+     //création du formulaire mail
     const divMail = document.createElement('div');
     form.appendChild(divMail);
     divMail.className = 'div_info';
@@ -262,6 +280,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     mail.name = "Adresse mail"
     mail.required = true;
 
+    //vérification de la validité du mail
     mail.addEventListener("change", function (event) {
         if (validMail(mail.value)) {} else {
             event.preventDefault()
@@ -269,6 +288,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
+    //creation du bouton validation
     const divButton = document.createElement('div');
     form.appendChild(divButton);
     divButton.className = 'div_button';
@@ -281,15 +301,18 @@ if (storedCameras == null || storedCameras.length === 0) {
     submit.id = 'valid';
     submit.textContent = "Valider ma commande";
 
+    // envoie des données panier + contact au serveur si le formulaire est valide
     submit.addEventListener("click", function (event) {
         if (validFirstName(firstName.value) && validLastName(lastName.value) && validAddress(address.value) && validCity(city.value)) {
             event.preventDefault();
 
+            // envoie du prix total au localStorage
             totalPrice = totalCalculator(storedCard);
             localStorage.setItem('totalPrice', totalPrice);
             const storagePrice = localStorage.getItem('totalPrice');
             console.log(storagePrice);
 
+            //Création de l'objet "contact"
             let contact = {
                 firstName: firstName.value,
                 lastName: lastName.value,
@@ -299,6 +322,7 @@ if (storedCameras == null || storedCameras.length === 0) {
             }
             console.log(contact);
 
+            // création du tableau products (id des cameras du panier)
             let products = [];
             for (storedCamera of storedCameras) {
                 let productsId = storedCamera.cameraId;
@@ -312,6 +336,7 @@ if (storedCameras == null || storedCameras.length === 0) {
             }
             console.log(send);
 
+            // envoie des données au serveur
             const post = async function (data) {
                 try {
                     let response = await fetch('http://localhost:3000/api/cameras/order', {
@@ -345,11 +370,6 @@ if (storedCameras == null || storedCameras.length === 0) {
     })
 
 
-
 };
 
 
-
-
-
-storedDiv.appendChild(storedCard);
