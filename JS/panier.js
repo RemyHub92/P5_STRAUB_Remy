@@ -15,13 +15,13 @@ if (storedCameras == null || storedCameras.length === 0) {
     emptyStored.className = 'empty_stored';
     emptyStored.textContent = 'Votre panier est vide !';
     storedCard.appendChild(emptyStored);
-//sinon: récupération des éléments du panier
+    //sinon: récupération des éléments du panier
 } else {
     let i = 0;
     for (storedCamera of storedCameras) {
         //création des différents éléments du panier
         const cardProd = document.createElement('div');
-        cardProd.className = 'card_prod d-flex justify-content-around border border-secondary col-xl-6 col-md-6';
+        cardProd.className = 'card_prod d-flex justify-content-around border border-secondary';
         cardProd.setAttribute('data-id', storedCamera.cameraId);
         storedCard.appendChild(cardProd);
 
@@ -41,7 +41,7 @@ if (storedCameras == null || storedCameras.length === 0) {
 
         //création d'un bouton suppression pour chaque élément du panier
         const garbageButton = document.createElement('button');
-        garbageButton.className = 'garbage_button';
+        garbageButton.className = 'garbage_button btn btn-secondary btn-rounded';
         garbageButton.addEventListener("click", function (event) {
             event.preventDefault();
             //récupétion de l'article
@@ -50,7 +50,7 @@ if (storedCameras == null || storedCameras.length === 0) {
             let storedCameras = JSON.parse(localStorage.getItem('newArticle'));
             let i = 0;
             while (i < storedCameras.length) {
-                if (storedCameras[i].cameraId == productsRemoveId) { 
+                if (storedCameras[i].cameraId == productsRemoveId) {
                     //suppression de l'article du local storage
                     storedCameras.splice(i, 1);
                     i = storedCameras.length;
@@ -111,18 +111,14 @@ if (storedCameras == null || storedCameras.length === 0) {
     //création d'un bouton pour vider le panier
     const garbage = document.createElement('button');
     storedCard.appendChild(garbage),
-        garbage.className = 'icon_garbage btn btn-secondary btn-rounded'; ////////////////////////////////
+    garbage.className = 'icon_garbage btn btn-secondary btn-rounded';
 
     const garbageLink = document.createElement('a');
     garbage.appendChild(garbageLink);
-    garbageLink.id = 'garbage_link';
+    garbageLink.className = 'garbage_link';
     garbageLink.href = 'panier.html';
     garbageLink.title = 'Vider le panier';
     garbageLink.textContent = 'Vider mon panier';
-
-    const icon = document.createElement('i');
-    garbageLink.appendChild(icon);
-    icon.className = 'fas fa-trash-alt';
 
     garbage.addEventListener("click", function (event) {
         event.preventDefault();
@@ -188,7 +184,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
-     //création du formulaire nom
+    //création du formulaire nom
     const divLastName = document.createElement('div');
     form.appendChild(divLastName);
     divLastName.className = 'div_info';
@@ -213,7 +209,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
-     //création du formulaire adresse
+    //création du formulaire adresse
     const divAddress = document.createElement('div');
     form.appendChild(divAddress);
     divAddress.className = 'div_info';
@@ -238,7 +234,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
-     //création du formulaire ville
+    //création du formulaire ville
     const divCity = document.createElement('div');
     form.appendChild(divCity);
     divCity.className = 'div_info';
@@ -263,7 +259,7 @@ if (storedCameras == null || storedCameras.length === 0) {
         }
     });
 
-     //création du formulaire mail
+    //création du formulaire mail
     const divMail = document.createElement('div');
     form.appendChild(divMail);
     divMail.className = 'div_info';
@@ -371,5 +367,3 @@ if (storedCameras == null || storedCameras.length === 0) {
 
 
 };
-
-

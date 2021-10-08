@@ -9,7 +9,7 @@ console.log(totalPrice);
 const mainConfirm = document.getElementById('main_confirm');
 //création page de confirmation et remerciement
 const orderConfirm = document.createElement('div');
-orderConfirm.className = 'order_confirm col-md-6 text-center'; 
+orderConfirm.className = 'order_confirm col-md-6 text-center';
 mainConfirm.appendChild(orderConfirm);
 
 const confirmTitle = document.createElement('h3');

@@ -110,13 +110,6 @@ label {
     text-decoration: none;
 }
 
-.garbage_link{
-    justify-content: space-between;
-}
-
-.icon_garbage {
-    padding: 10px 40px;
-}
 
 .contact_form {
     display: flex;
