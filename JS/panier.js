@@ -229,7 +229,7 @@ if (storedCameras == null || storedCameras.length === 0) {
     //vérification de la validité de l'adresse
     address.addEventListener("change", function (event) {
         if (validAddress(address.value)) {} else {
-            alert("Aucun symbole n'est autoriséffffffffff.");
+            alert("Aucun symbole n'est autorisé.");
             event.preventDefault()
         }
     });
